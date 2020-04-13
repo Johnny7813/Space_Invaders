@@ -1,5 +1,5 @@
 import pygame
-import math
+
 
 class Actor:
     collisionConstant = 32.0
@@ -20,7 +20,6 @@ class Actor:
         # border left, right, up, down
         self.border = {"left":0, "right": self.screenSize[0]-self.imgSize[0], "up":0, "down":self.screenSize[1]-self.imgSize[1]}
         self.active = True
-
 
 
     # changeX should be a positive value
