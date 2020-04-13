@@ -99,6 +99,47 @@ class Actor:
         print("Position: ", self.pos)
 
 
+
+class Player(Actor):
+    def __init__(self, imageFile, screen, startX, startY, changeX=20, changeY=40):
+        super().__init__(imageFile, screen, startX, startY, changeX, changeY)
+        self.horizontalMove = 0
+        self.verticalMove   = 0
+
+    def nextHorizontalMove(self, changeX=0):
+        self.horizontalMove = changeX
+
+    def nextVerticalMove(self, changeY=0):
+        self.verticalMove = changeY
+
+    def move(self):
+        self.pos[0] += self.horizontalMove
+        self.pos[1] += self.verticalMove
+        self.center[0] += self.horizontalMove
+        self.center[1] += self.verticalMove
+
+        # make sure the object does not leave the screen
+        if self.pos[0] < self.border["left"]:
+            self.pos[0] = self.border["left"]
+            self.center[0] = self.border["left"] + self.imgSize[0]
+
+        # make sure the object does not leave the screen
+        if self.pos[0] > self.border["right"]:
+            self.pos[0] = self.border["right"]
+            self.center[0] = self.border["right"] + self.imgSize[0]
+
+        # make sure the object does not leave the screen
+        if self.pos[1] > self.border["down"]:
+            self.pos[1] = self.border["down"]
+            self.center[1] += self.border["down"] + self.imgSize[1]
+
+        # make sure the object does not leave the screen
+        if self.pos[1] < self.border["up"]:
+            self.pos[1] = self.border["up"]
+            self.center[1] = self.border["up"] + self.imgSize[1]
+
+
+
 class Enemy(Actor):
     def __init__(self, imageFile, screen, startX, startY, changeX=20, changeY=40):
         super().__init__(imageFile, screen, startX, startY, changeX, changeY)
@@ -125,6 +166,7 @@ class Enemy(Actor):
 
         if self.pos[1] > self.screenSize[1]:
             self.active = False
+
 
 
 
